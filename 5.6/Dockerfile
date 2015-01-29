@@ -21,7 +21,7 @@ RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" \
 
 # Install php5 + nginx + DB clients
 RUN apt-get update \
-  && apt-get -yq upgrade \
+  && apt-get install -y -qq \
       nginx \
       unzip \
       subversion \
@@ -65,6 +65,4 @@ RUN mkdir -p /app && rm -fr /var/www && ln -s /app /var/www
 ADD sample/ /app
 
 EXPOSE 80
-WORKDIR /app
-
 CMD ["/run.sh"]
