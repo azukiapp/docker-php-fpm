@@ -5,7 +5,7 @@ Base docker image to run PHP applications on FPM and Nginx
 
 - Git
 - Nginx
-- PHP Version 5.6.3 (With FPM)
+- PHP Version 5.5.9, **5.6.3** (With FPM)
 - Composer
 - Node
 - MySQL Client
