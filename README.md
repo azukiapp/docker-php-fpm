@@ -6,8 +6,10 @@ Base docker image to run **PHP** applications in [`azk`](http://azk.io)
 Versions (tags)
 ---
 
+<versions>
 - [`latest`, `5`, `5.6`, `5.6.3`](https://github.com/azukiapp/docker-php-fpm/blob/master/5.6/Dockerfile)
 - [`5.5`, `5.5.9`](https://github.com/azukiapp/docker-php-fpm/blob/master/5.5/Dockerfile)
+</versions>
 
 Image content:
 ---
