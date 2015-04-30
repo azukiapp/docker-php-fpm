@@ -49,9 +49,8 @@ RUN echo "extension=mongo.so" > /etc/php5/mods-available/mongo.ini
 RUN php5enmod mcrypt mongo
 
 # nginx config
-RUN curl -L https://gist.github.com/darron/6159214/raw/30a60885df6f677bfe6f2ff46078629a8913d0bc/gistfile1.txt \
-    -o /etc/nginx/sites-available/default \
-  && echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini \
+ADD nginx-default.conf /etc/nginx/sites-available/default
+RUN  echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini \
   && echo "daemon off;" >> /etc/nginx/nginx.conf
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -62,7 +61,7 @@ RUN chmod 755 /*.sh
 
 # Configure /app folder with sample app
 RUN mkdir -p /app && rm -fr /var/www && ln -s /app /var/www
-ADD sample/ /app
+ADD sample/ /app/public
 
 EXPOSE 80
 CMD ["/run.sh"]
