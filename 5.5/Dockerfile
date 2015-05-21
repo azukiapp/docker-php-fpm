@@ -45,8 +45,11 @@ RUN php5enmod mcrypt mongo
 
 # nginx config
 ADD nginx-default.conf /etc/nginx/sites-available/default
-RUN  echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini \
-  && echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN  echo "daemon off;" >> /etc/nginx/nginx.conf \
+  && echo "fix ownership of sock file for php-fpm as our version of nginx runs as root" \
+  && sed -i -e "s/user www-data/user root/g" /etc/nginx/nginx.conf \
+  && sed -i -e "s/www-data/root/g" /etc/php5/fpm/pool.d/www.conf \
+  && sed -i -e "s/DAEMON_ARGS=\"/DAEMON_ARGS=\"--allow-to-run-as-root /g" /etc/init.d/php5-fpm
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -54,9 +57,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
-# Configure /app folder with sample app
-RUN mkdir -p /app && rm -fr /var/www && ln -s /app /var/www
-ADD sample/ /app/public
+# Configure nginx root with sample app
+ADD sample/ /var/www/public
 
 EXPOSE 80
 CMD ["/run.sh"]
