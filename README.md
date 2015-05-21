@@ -68,13 +68,6 @@ systems({
     envs: {
       // set instances variables
       APP_DIR: "/azk/#{manifest.dir}",
-      PHP_ENV: "dev",
-    },
-    docker_extra: {
-      // extra docker options
-      start: {
-        Privileged: "true",
-      },
     },
   },
 });
