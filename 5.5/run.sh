@@ -10,6 +10,7 @@ if [ ! -z "$APP_DIR" ]; then
 		dir="${DOCUMENT_ROOT}/public"
 	fi
 
+	mkdir -p `dirname ${dir}`
 	ln -s $APP_DIR $dir
 fi
 
