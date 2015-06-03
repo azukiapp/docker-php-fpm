@@ -51,10 +51,9 @@ systems({
     ],
     workdir: "/azk/#{manifest.dir}",
     shell: "/bin/bash",
-    command: "# command to run app",
     wait: {"retry": 20, "timeout": 1000},
     mounts: {
-      '/azk/#{manifest.dir}': path("."),
+      '/azk/#{manifest.dir}': sync("."),
     },
     scalable: {"default": 2},
     http: {
@@ -84,7 +83,7 @@ $ docker build -t azukiapp/php-fpm 5.6/
 To run the image and bind to port 80:
 
 ```sh
-$ docker run -it --rm --name my-app -p 80:80 -v "$PWD":/myapp -w /myapp azukiapp/php-fpm php index.php
+$ docker run -d --rm --name my-app -p 80:80 -v "$PWD":/var/www -w /var/www azukiapp/php-fpm
 ```
 
 #### To run the sample project:

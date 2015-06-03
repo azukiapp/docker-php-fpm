@@ -49,6 +49,7 @@ RUN  echo "daemon off;" >> /etc/nginx/nginx.conf \
   && echo "fix ownership of sock file for php-fpm as our version of nginx runs as root" \
   && sed -i -e "s/user www-data/user root/g" /etc/nginx/nginx.conf \
   && sed -i -e "s/www-data/root/g" /etc/php5/fpm/pool.d/www.conf \
+  && sed -i -e "s/;clear_env = no/clear_env = no/g" /etc/php5/fpm/pool.d/www.conf \
   && sed -i -e "s/DAEMON_ARGS=\"/DAEMON_ARGS=\"--allow-to-run-as-root /g" /etc/init.d/php5-fpm
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
