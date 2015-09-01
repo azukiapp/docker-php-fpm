@@ -1,17 +1,21 @@
-#!/bin/bash
+DOCUMENT_ROOT="/var/www"
 
-if [ ! -z "$APP_DIR" ]; then
-	DOCUMENT_ROOT="/var/www"
-	rm -rf ${DOCUMENT_ROOT}
+if [ ! -z "$PUBLIC_DIR" ]; then
+    rm -rf ${DOCUMENT_ROOT}
 
-	if [ -d "${APP_DIR}/public" ]; then
-		dir="${DOCUMENT_ROOT}"
-	else
-		dir="${DOCUMENT_ROOT}/public"
-	fi
+    mkdir -p "${DOCUMENT_ROOT}"
+    ln -s $PUBLIC_DIR "${DOCUMENT_ROOT}/public"
+elif [ ! -z "$APP_DIR" ]; then
+    rm -rf ${DOCUMENT_ROOT}
 
-	mkdir -p `dirname ${dir}`
-	ln -s $APP_DIR $dir
+    if [ -d "${APP_DIR}/public" ]; then
+        dir="${DOCUMENT_ROOT}"
+    else
+        dir="${DOCUMENT_ROOT}/public"
+    fi
+
+    mkdir -p "dirname ${dir}"
+    ln -s $APP_DIR $dir
 fi
 
 # Tweak nginx to match the workers to cpu's
