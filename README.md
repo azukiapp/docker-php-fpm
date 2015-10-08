@@ -67,6 +67,7 @@ systems({
     envs: {
       // set instances variables
       APP_DIR: "/azk/#{manifest.dir}",
+      //or use PUBLIC_DIR to lock your application
     },
   },
 });
