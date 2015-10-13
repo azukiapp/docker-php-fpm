@@ -6,7 +6,7 @@ test:
   override:
 
     # Create index.php that will output the `phpinfo()`.
-    - docker build -t gullitmiranda/php-fpm .
+    - docker build -t gullitmiranda/php-fpm 5.6
     - |
       mkdir src
       cat <<-EOL > src/index.php
@@ -16,15 +16,14 @@ test:
 
         php?>
       EOL
-      cp 5.6/configuration/nginx.conf.sample 5.6/configuration/nginx.conf
-      sed -i \
-        -e 's/root \/var\/www/root \/docker\/src/g' \
-        5.6/configuration/nginx.conf
       cat 5.6/configuration/nginx.conf
+    - |
+      docker run --rm gullitmiranda/php-fpm ls -alh /var/www/public/
     - |
       docker run -d -p 80:80 \
         -v $(pwd)/5.6/configuration:/docker/configuration \
-        -v $(pwd)/5.6/src:/docker/src \
+        -v $(pwd)/src:/docker/src \
+        -e APP_DIR:/docker/src \
         --name php-fpm \
         gullitmiranda/php-fpm; \
       sleep 5
