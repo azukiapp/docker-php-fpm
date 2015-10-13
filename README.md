@@ -1,4 +1,4 @@
-[gullitmiranda/php-fpm](http://images.azk.io/#/php-fpm)
+[azukiapp/php-fpm](http://images.azk.io/#/php-fpm)
 ==================
 
 Base docker image to run **PHP** applications in [`azk`](http://azk.io)
@@ -7,16 +7,27 @@ Versions (tags)
 ---
 
 <versions>
-- [`latest`, `5`, `5.6`, `5.6.14`](https://github.com/azukiapp/docker-php-fpm/blob/master/5.6/Dockerfile)
+- [`latest`, `5`, `5.6`, `5.6.3`](https://github.com/azukiapp/docker-php-fpm/blob/master/5.6/Dockerfile)
+- [`5.5`, `5.5.9`](https://github.com/azukiapp/docker-php-fpm/blob/master/5.5/Dockerfile)
 </versions>
 
 Image content:
 ---
 
-- Alpine
+- Ubuntu 14.04
 - Git
+- VIM
 - Composer
+- NodeJS
+- npm
 - PHP
+
+Database:
+
+- PostgreSQL client
+- MySQL client
+- MongoDB
+- SQLite3
 
 ### Usage with `azk`
 
@@ -26,14 +37,14 @@ Example of using this image with [azk](http://azk.io):
 /**
  * Documentation: http://docs.azk.io/Azkfile.js
  */
-
+ 
 // Adds the systems that shape your system
 systems({
   "my-app": {
     // Dependent systems
     depends: [], // postgres, mysql, mongodb ...
     // More images:  http://images.azk.io
-    image: {"docker": "gullitmiranda/php-fpm"},
+    image: {"docker": "azukiapp/php-fpm"},
     // Steps to execute before running instances
     provision: [
       // "composer install",
@@ -64,17 +75,32 @@ systems({
 
 ### Usage with `docker`
 
-To create the image `gullitmiranda/php-fpm`, execute the following command on the docker-php-fpm folder:
+To create the image `azukiapp/php-fpm`, execute the following command on the docker-php-fpm folder:
 
 ```sh
-# Build
-docker build -t gullitmiranda/php-fpm 5.6/
+$ docker build -t azukiapp/php-fpm 5.6/
+```
 
-# Run
-docker run -d --rm --name my-app -p 80:80 -p 443:443 gullitmiranda/php-fpm
+To run the image and bind to port 80:
 
-# Run with a mounted volume
-docker run -d --rm --name my-app -p 80:80 -p 443:443 -v "$PWD":/var/www -w /var/www gullitmiranda/php-fpm
+```sh
+$ docker run -d --rm --name my-app -p 80:80 -v "$PWD":/var/www -w /var/www azukiapp/php-fpm
+```
+
+#### To run the sample project:
+
+Start your image binding external port 80 in all interfaces to your container:
+
+```sh
+$ docker run -d -p 80:80 azukiapp/php-fpm
+```
+
+Test your deployment:
+
+```sh
+$ curl http://localhost/
+
+Hello world!
 ```
 
 Logs
@@ -85,7 +111,7 @@ Logs
 $ azk logs my-app
 
 # with docker
-$ docker logs my-app
+$ docker logs <CONTAINER_ID>
 ```
 
 ## License

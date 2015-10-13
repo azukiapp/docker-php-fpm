@@ -1,4 +1,0 @@
-.dockerignore
-circle.yml
-5.6/configuration/nginx.conf.sample
-README.md

@@ -2,7 +2,7 @@
 #
 # - Git
 # - Nginx
-# - PHP Version 5.6.3 (With FPM)
+# - PHP Version 5.5.9 (With FPM)
 # - Composer
 # - Node
 # - MySQL Client
@@ -13,11 +13,6 @@
 
 FROM azukiapp/node
 MAINTAINER Azuki <support@azukiapp.com>
-
-# Add PHP repository to apt source
-RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" \
-        > /etc/apt/sources.list.d/php5-5.6.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-key E5267A6C
 
 # Install php5 + nginx + DB clients
 RUN apt-get update \
@@ -62,7 +57,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
   && ln -sf /dev/stderr /var/log/nginx/error.log
-
 
 # Add image configuration and scripts
 ADD run.sh /run.sh
