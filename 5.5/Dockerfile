@@ -11,7 +11,7 @@
 # - SQLite3
 #
 
-FROM azukiapp/node
+FROM azukiapp/node:0.12                                                                    
 MAINTAINER Azuki <support@azukiapp.com>
 
 # Install php5 + nginx + DB clients
@@ -35,6 +35,7 @@ RUN apt-get update \
       php-pear \
       php-apc \
       sqlite3 libsqlite3-dev \
+      php5-intl \
   && pecl install mongo \
   && apt-get clean -qq \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
