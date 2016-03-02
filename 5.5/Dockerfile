@@ -11,7 +11,7 @@
 # - SQLite3
 #
 
-FROM azukiapp/node:0.12                                                                    
+FROM azukiapp/node:0.12
 MAINTAINER Azuki <support@azukiapp.com>
 
 # Install php5 + nginx + DB clients
@@ -30,6 +30,7 @@ RUN apt-get update \
       php5-mcrypt \
       php5-curl \
       php5-json \
+      php5-xsl \
       php5-gd \
       php5-fpm \
       php-pear \

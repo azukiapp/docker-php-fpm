@@ -36,6 +36,7 @@ RUN apt-get update \
       php5-curl \
       php5-json \
       php5-gd \
+      php5-xsl \
       php5-fpm \
       php-pear \
       php-apc \
